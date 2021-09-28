@@ -9,11 +9,11 @@ const verifyWithExists = async (email) => {
 };
 
 const createNewUser = async (newUser) => {
-  const { login, email } = newUser;
+  const { email, password } = newUser;
 
-  if (verifyWithExists(email)) return false;
+  if (await verifyWithExists(email)) return false;
 
-  const userCreate = await create(login, email);
+  const userCreate = await create(email, password);
 
   return userCreate;
 };
