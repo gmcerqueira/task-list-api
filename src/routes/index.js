@@ -2,7 +2,7 @@ import { Router } from "express";
 
 const routes = new Router();
 
-routes.get("/", (res, req) => {
+routes.get("/", (req, res) => {
   res.status(200).json({ ok: "connected" });
 });
 
