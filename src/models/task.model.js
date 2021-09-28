@@ -1,6 +1,6 @@
 import connection from './connection';
 
-const findAll = async (userId) => {
+const getAll = async (userId) => {
   const db = await connection();
 
   const list = await db.collection('tasks').find({ userId }).toArray();
@@ -17,4 +17,4 @@ const create = async (text, userId) => {
   return task;
 };
 
-export { findAll, create };
+export { getAll, create };
