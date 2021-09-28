@@ -1,15 +1,19 @@
+import { ObjectId } from 'mongodb';
 import connection from './connection';
 
-const findAll = async () => {
+const findAll = async (id) => {
   const db = await connection();
-  const list = db.collection('tasks').find().toArray();
+
+  const list = await db.collection('tasks').find({ userId: ObjectId(id) }).toArray();
 
   return list;
 };
 
 const create = async (text, userId) => {
   const db = await connection();
-  const task = db.collection('tasks').insertOne({ text, userId, created: new Date() });
+  const task = await db
+    .collection('tasks')
+    .insertOne({ text, userId, created: new Date() });
 
   return task;
 };
