@@ -1,12 +1,17 @@
 import connection from './connection';
 
-const create = async (username, password) => {
+const create = async (email, password) => {
   const db = await connection();
-  const user = await db.collection('users').insertOne({ username, password });
+  const user = await db.collection('users').insertOne({ email, password });
 
   return user;
 };
 
-const name = () => {};
+const findByEmail = async (email) => {
+  const db = await connection();
+  const user = await db.collection('users').findOne({ email });
 
-export { create, name };
+  return user;
+};
+
+export { create, findByEmail };

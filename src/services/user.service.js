@@ -1,8 +1,19 @@
-import { create } from '../models/user.model';
+import { create, findByEmail } from '../models/user.model';
+
+const verifyWithExists = async (email) => {
+  const exists = await findByEmail(email);
+
+  if (exists) return true;
+
+  return false;
+};
 
 const createNewUser = async (newUser) => {
-  const { login, password } = newUser;
-  const userCreate = await create(login, password);
+  const { login, email } = newUser;
+
+  if (verifyWithExists(email)) return false;
+
+  const userCreate = await create(login, email);
 
   return userCreate;
 };
