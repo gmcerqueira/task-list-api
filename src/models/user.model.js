@@ -14,11 +14,11 @@ const findByEmail = async (email) => {
   return user;
 };
 
-const findUserLogin = async (email, password) => {
+const login = async (email, password) => {
   const db = await connection();
   const user = await db.collection('users').findOne({ email, password });
 
   return user;
 };
 
-export { create, findByEmail, findUserLogin };
+export { create, findByEmail, login };
