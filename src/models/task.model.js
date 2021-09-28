@@ -3,7 +3,6 @@ import connection from './connection';
 class TaskModel {
   async findAll(userId) {
     const db = await connection();
-
     const list = await db.collection('tasks').find({ userId }).toArray();
 
     return list;

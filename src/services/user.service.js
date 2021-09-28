@@ -1,36 +1,38 @@
 import UserModel from '../models/user.model';
 
-const returnUser = (user) => {
-  const { password, ...newUser } = user;
+class UserService {
+  returnUser(user) {
+    const { password, ...newUser } = user;
 
-  return newUser;
-};
+    return newUser;
+  }
 
-const verifyWithExists = async (email) => {
-  const exists = await UserModel.findByEmail(email);
+  async verifyWithExists(email) {
+    const exists = await UserModel.findByEmail(email);
 
-  if (exists) return true;
+    if (exists) return true;
 
-  return false;
-};
+    return false;
+  }
 
-const createNewUser = async (newUser) => {
-  const { email, password } = newUser;
+  async createNewUser(newUser) {
+    const { email, password } = newUser;
 
-  if (await verifyWithExists(email)) return false;
+    if (await this.verifyWithExists(email)) return false;
 
-  const userCreate = await UserModel.create(email, password);
+    const userCreate = await UserModel.create(email, password);
 
-  return userCreate.insertedId;
-};
+    return userCreate.insertedId;
+  }
 
-const verifyLogin = async (user) => {
-  const { email, password } = user;
-  const userLogged = await UserModel.findUserLogin(email, password);
+  async verifyLogin(user) {
+    const { email, password } = user;
+    const userLogged = await UserModel.findUserLogin(email, password);
 
-  if (!userLogged) return false;
+    if (!userLogged) return false;
 
-  return returnUser(userLogged);
-};
+    return this.returnUser(userLogged);
+  }
+}
 
-export { createNewUser, verifyLogin };
+export default new UserService();

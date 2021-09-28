@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { createNewUser, verifyLogin } from '../services/user.service';
+import UserService from '../services/user.service';
 
 const secret = process.env.SECRET || 'test';
 
@@ -9,7 +9,7 @@ const jwtConfig = {
 };
 
 const singUp = async (req, res) => {
-  const userCreate = await createNewUser(req.body);
+  const userCreate = await UserService.createNewUser(req.body);
 
   if (!userCreate) return res.status(409).json({ message: 'This email is already register' });
 
@@ -17,7 +17,7 @@ const singUp = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const logged = await verifyLogin(req.body);
+  const logged = await UserService.verifyLogin(req.body);
 
   if (!logged) return res.status(409).json({ message: 'Email or password incorrect' });
 
