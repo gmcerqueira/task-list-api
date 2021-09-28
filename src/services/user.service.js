@@ -24,7 +24,7 @@ const verifyLogin = async (user) => {
 
   if (!userLogged) return false;
 
-  return true;
+  return userLogged;
 };
 
 export { createNewUser, verifyLogin };

@@ -1,4 +1,12 @@
+import jwt from 'jsonwebtoken';
 import { createNewUser, verifyLogin } from '../services/user.service';
+
+const secret = process.env.SECRET || 'test';
+
+const jwtConfig = {
+  expiresIn: '7d',
+  algorithm: 'HS256',
+};
 
 const singUp = async (req, res) => {
   const userCreate = await createNewUser(req.body);
@@ -13,7 +21,9 @@ const login = async (req, res) => {
 
   if (!logged) return res.status(409).json({ message: 'Email or password incorrect' });
 
-  return res.status(200).json({ logged });
+  const token = jwt.sign(logged, secret, jwtConfig);
+
+  return res.status(200).json({ token });
 };
 
 export { singUp, login };
