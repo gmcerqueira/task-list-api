@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import UserService from '../services/user.service';
+import { createNewUser, verifyLogin } from '../services/user.service';
 
 const secret = process.env.SECRET || 'test';
 
@@ -8,24 +8,26 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
-class UserController {
-  async singUp(req, res) {
-    const userCreate = await UserService.createNewUser(req.body);
+const singUp = async (req, res) => {
+  const userCreate = await createNewUser(req.body);
 
-    if (!userCreate) return res.status(409).json({ message: 'This email is already register' });
-
-    return res.status(200).json({ userId: userCreate });
+  if (!userCreate) {
+    return res.status(409).json({ message: 'This email is already register' });
   }
 
-  async login(req, res) {
-    const logged = await UserService.verifyLogin(req.body);
+  return res.status(200).json({ userId: userCreate });
+};
 
-    if (!logged) return res.status(409).json({ message: 'Email or password incorrect' });
+const login = async (req, res) => {
+  const logged = await verifyLogin(req.body);
 
-    const token = jwt.sign(logged, secret, jwtConfig);
-
-    return res.status(200).json({ token });
+  if (!logged) {
+    return res.status(409).json({ message: 'Email or password incorrect' });
   }
-}
 
-export default new UserController();
+  const token = jwt.sign(logged, secret, jwtConfig);
+
+  return res.status(200).json({ token });
+};
+
+export { login, singUp };
