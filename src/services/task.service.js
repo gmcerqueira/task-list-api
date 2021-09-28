@@ -1,4 +1,4 @@
-import { findAll } from '../models/task.model';
+import { findAll, create } from '../models/task.model';
 
 const listTasks = async () => {
   const list = await findAll();
@@ -6,6 +6,11 @@ const listTasks = async () => {
   return list;
 };
 
-const name = () => {};
+const registerTask = async (text, user) => {
+  const { _id } = user;
+  const task = await create(text, _id);
 
-export { listTasks, name };
+  return task;
+};
+
+export { listTasks, registerTask };

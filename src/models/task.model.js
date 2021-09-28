@@ -6,6 +6,12 @@ const findAll = async () => {
 
   return list;
 };
-const name = () => {};
 
-export { findAll, name };
+const create = async (text, userId) => {
+  const db = await connection();
+  const task = db.collection('tasks').insertOne({ text, userId, created: new Date() });
+
+  return task;
+};
+
+export { findAll, create };
