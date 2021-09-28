@@ -1,4 +1,4 @@
-import { createNewUser } from '../services/user.service';
+import { createNewUser, verifyLogin } from '../services/user.service';
 
 const singUp = async (req, res) => {
   const userCreate = await createNewUser(req.body);
@@ -8,6 +8,12 @@ const singUp = async (req, res) => {
   return res.status(200).json(userCreate);
 };
 
-const name = () => {};
+const login = async (req, res) => {
+  const logged = await verifyLogin(req.body);
 
-export { singUp, name };
+  if (!logged) return res.status(409).json({ message: 'Email or password incorrect' });
+
+  return res.status(200).json({ logged });
+};
+
+export { singUp, login };
