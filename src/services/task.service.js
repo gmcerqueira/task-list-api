@@ -1,19 +1,17 @@
-import taskModel from '../models/task.model';
+import { getAll, create } from '../models/task.model';
 
-class TaskService {
-  async listTasks(user) {
-    const { _id } = user;
-    const list = await taskModel.findAll(_id);
+const listTasks = async (user) => {
+  const { _id } = user;
+  const list = await getAll(_id);
 
-    return list;
-  }
+  return list;
+};
 
-  async registerTask(text, user) {
-    const { _id } = user;
-    const task = await taskModel.create(text, _id);
+const registerTask = async (text, user) => {
+  const { _id } = user;
+  const task = await create(text, _id);
 
-    return task;
-  }
-}
+  return task;
+};
 
-export default new TaskService();
+export { listTasks, registerTask };
