@@ -7,6 +7,4 @@ const getAll = async () => {
   return list;
 };
 
-module.exports = {
-  getAll,
-};
+export { getAll };

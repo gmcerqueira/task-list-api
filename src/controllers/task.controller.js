@@ -6,4 +6,4 @@ const getAll = async (req, res) => {
   res.status(200).json({ tasks: list });
 };
 
-module.exports = { getAll };
+export { getAll };
