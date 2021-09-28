@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { findUserLogin } from '../models/user.model';
+import { findByEmail } from '../models/user.model';
 
 const secret = process.env.SECRET || 'test';
 
@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, secret);
-    const user = await findUserLogin(decoded.email, decoded.password);
+    const user = await findByEmail(decoded.email);
 
     if (!user) {
       return res
@@ -16,9 +16,7 @@ module.exports = async (req, res, next) => {
         .json({ message: 'Erro ao procurar usuário do token.' });
     }
 
-    const { _id } = user;
-
-    req.userId = _id;
+    req.userData = user;
 
     next();
   } catch (err) {
