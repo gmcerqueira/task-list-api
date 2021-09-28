@@ -1,4 +1,4 @@
-import { create, findByEmail, findUserLogin } from '../models/user.model';
+import UserModel from '../models/user.model';
 
 const returnUser = (user) => {
   const { password, ...newUser } = user;
@@ -7,7 +7,7 @@ const returnUser = (user) => {
 };
 
 const verifyWithExists = async (email) => {
-  const exists = await findByEmail(email);
+  const exists = await UserModel.findByEmail(email);
 
   if (exists) return true;
 
@@ -19,14 +19,14 @@ const createNewUser = async (newUser) => {
 
   if (await verifyWithExists(email)) return false;
 
-  const userCreate = await create(email, password);
+  const userCreate = await UserModel.create(email, password);
 
   return userCreate.insertedId;
 };
 
 const verifyLogin = async (user) => {
   const { email, password } = user;
-  const userLogged = await findUserLogin(email, password);
+  const userLogged = await UserModel.findUserLogin(email, password);
 
   if (!userLogged) return false;
 
