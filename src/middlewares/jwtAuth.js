@@ -21,7 +21,7 @@ module.exports = async (req, res, next) => {
     next();
   } catch (err) {
     console.log(err);
-    return res.status(401).json({ message: err.message });
+    return res.status(401).json({ error: err.message });
   }
 
   return true;

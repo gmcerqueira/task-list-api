@@ -23,7 +23,7 @@ const checkErrorType = (err) => {
 export default (err, _req, res, next) => {
   const { code, message } = checkErrorType(err);
 
-  res.status(code).json({ message });
+  res.status(code).json({ error: message });
 
   next();
 };
