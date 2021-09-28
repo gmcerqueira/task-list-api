@@ -1,6 +1,5 @@
 import express from 'express';
 import routes from './routes';
-// import errors from './middlewares/erros';
 
 class App {
   constructor() {
@@ -11,7 +10,6 @@ class App {
 
   middlewares() {
     this.server.use(express.json());
-    // this.server.use(errors);
   }
 
   routes() {
