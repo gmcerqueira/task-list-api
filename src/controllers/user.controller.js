@@ -13,7 +13,7 @@ const singUp = async (req, res) => {
 
   if (!userCreate) return res.status(409).json({ message: 'This email is already register' });
 
-  return res.status(200).json(userCreate);
+  return res.status(200).json({ userId: userCreate });
 };
 
 const login = async (req, res) => {

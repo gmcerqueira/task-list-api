@@ -1,5 +1,11 @@
 import { create, findByEmail, findUserLogin } from '../models/user.model';
 
+const returnUser = (user) => {
+  const { password, ...newUser } = user;
+
+  return newUser;
+};
+
 const verifyWithExists = async (email) => {
   const exists = await findByEmail(email);
 
@@ -15,7 +21,7 @@ const createNewUser = async (newUser) => {
 
   const userCreate = await create(email, password);
 
-  return userCreate;
+  return userCreate.insertedId;
 };
 
 const verifyLogin = async (user) => {
@@ -24,7 +30,7 @@ const verifyLogin = async (user) => {
 
   if (!userLogged) return false;
 
-  return userLogged;
+  return returnUser(userLogged);
 };
 
 export { createNewUser, verifyLogin };
