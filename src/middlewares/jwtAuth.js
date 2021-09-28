@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { findByEmail } from '../models/user.model';
+import { searchEmail } from '../services/user.service';
 
 const secret = process.env.SECRET || 'test';
 
@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, secret);
-    const user = await findByEmail(decoded.email);
+    const user = await searchEmail(decoded.email);
 
     if (!user) {
       return res

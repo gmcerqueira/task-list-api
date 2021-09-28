@@ -49,4 +49,12 @@ const verifyLogin = async (user) => {
   return returnUser(userLogged);
 };
 
-export { createNewUser, verifyLogin };
+const searchEmail = async (email) => {
+  const user = await findByEmail(email);
+
+  if (!user) return { err: { userNotFound: true } };
+
+  return returnUser(user);
+};
+
+export { createNewUser, verifyLogin, searchEmail };

@@ -11,7 +11,7 @@ const registerTask = async (text, user) => {
   const { _id } = user;
   const task = await create(text, _id);
 
-  return task;
+  return task.insertedId;
 };
 
 export { listTasks, registerTask };
