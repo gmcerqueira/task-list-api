@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import rescue from 'express-rescue';
 import { createNewUser, verifyLogin } from '../services/user.service';
 
 const secret = process.env.SECRET || 'test';
@@ -8,22 +9,18 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
-const singUp = async (req, res) => {
+const singUp = rescue(async (req, res, next) => {
   const userCreate = await createNewUser(req.body);
 
-  if (!userCreate) {
-    return res.status(409).json({ message: 'This email is already register' });
-  }
+  if (userCreate.err) return next(userCreate.err);
 
   return res.status(200).json({ userId: userCreate });
-};
+});
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   const logged = await verifyLogin(req.body);
 
-  if (!logged) {
-    return res.status(409).json({ message: 'Email or password incorrect' });
-  }
+  if (logged.err) return next(logged.err);
 
   const token = jwt.sign(logged, secret, jwtConfig);
 
