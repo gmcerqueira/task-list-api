@@ -1,7 +1,8 @@
 import { MongoClient } from 'mongodb';
 
-const MONGO_DB_URL = 'mongodb://localhost:27017'; // for local accesses
-const DB_NAME = 'task_list_api';
+const MONGO_DB_URL = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+
+const DB_NAME = 'task-list-api';
 
 const connection = () => MongoClient.connect(MONGO_DB_URL, {
   useNewUrlParser: true,
