@@ -1,9 +1,11 @@
-import task from '../models/task.model';
+import { findAll } from '../models/task.model';
 
-const getAll = async () => {
-  const list = await task.getAll();
+const listTasks = async () => {
+  const list = await findAll();
 
   return list;
 };
 
-export { getAll };
+const name = () => {};
+
+export { listTasks, name };

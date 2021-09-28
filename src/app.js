@@ -1,5 +1,6 @@
 import express from 'express';
 import routes from './routes';
+import validateJWT from './middlewares/jwtAuth';
 
 class App {
   constructor() {
@@ -14,6 +15,7 @@ class App {
 
   routes() {
     this.server.use(routes);
+    this.server.use(validateJWT);
   }
 }
 export default new App().server;

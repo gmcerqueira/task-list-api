@@ -1,6 +1,7 @@
 import { Router } from 'express';
-// import task from '../controllers/task.controller';
+import { getAll } from '../controllers/task.controller';
 import { singUp, login } from '../controllers/user.controller';
+import validateJWT from '../middlewares/jwtAuth';
 
 const routes = new Router();
 
@@ -8,7 +9,7 @@ routes.get('/', (_req, res) => {
   res.status(200).json({ ok: 'connected' });
 });
 
-// routes.get('/tasks', task.getAll);
+routes.get('/tasks', validateJWT, getAll);
 
 routes.post('/singup', singUp);
 routes.post('/login', login);

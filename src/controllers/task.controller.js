@@ -1,9 +1,11 @@
-import task from '../services/task.service';
+import { listTasks } from '../services/task.service';
 
 const getAll = async (req, res) => {
-  const list = await task.getAll();
+  const list = await listTasks();
 
   res.status(200).json({ tasks: list });
 };
 
-export { getAll };
+const name = () => {};
+
+export { getAll, name };

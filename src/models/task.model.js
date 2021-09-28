@@ -1,10 +1,11 @@
 import connection from './connection';
 
-const getAll = async () => {
+const findAll = async () => {
   const db = await connection();
   const list = db.collection('tasks').find().toArray();
 
   return list;
 };
+const name = () => {};
 
-export { getAll };
+export { findAll, name };
