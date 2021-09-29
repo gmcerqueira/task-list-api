@@ -8,9 +8,14 @@ const getAll = async (userId) => {
   return list;
 };
 
-const create = async (task) => {
+const create = async (_id, text) => {
   const db = await connection();
-  const taskCreate = await db.collection('tasks').insertOne(task);
+  const taskCreate = await db.collection('tasks').insertOne({
+    userId: _id,
+    text,
+    status: 'pending',
+    created: new Date(),
+  });
 
   return taskCreate;
 };
@@ -22,7 +27,7 @@ const findById = async (id) => {
   return taskFound;
 };
 
-const editTask = async (_id, text) => {
+const editTaskText = async (_id, text) => {
   const db = await connection();
   const taskEdited = await db.collection('tasks').updateOne({ _id }, { $set: { text, lastUpdate: new Date() } });
 
@@ -30,5 +35,5 @@ const editTask = async (_id, text) => {
 };
 
 export {
-  getAll, create, findById, editTask,
+  getAll, create, findById, editTaskText,
 };

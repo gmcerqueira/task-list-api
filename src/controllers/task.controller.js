@@ -2,7 +2,7 @@ import {
   listTasks,
   registerTask,
   findTask,
-  modTask,
+  modTaskText,
 } from '../services/task.service';
 
 const getAll = async (req, res) => {
@@ -31,17 +31,17 @@ const getTask = async (req, res, next) => {
   return res.status(200).json(task);
 };
 
-const editTask = async (req, res, next) => {
+const editTaskText = async (req, res, next) => {
   const { id } = req.params;
   const user = req.userData;
   const text = req.body.task;
 
-  const task = await modTask(id, user, text);
+  const task = await modTaskText(id, user, text);
   if (task.err) return next(task.err);
 
   return res.status(200).json(task);
 };
 
 export {
-  getAll, newTask, getTask, editTask,
+  getAll, newTask, getTask, editTaskText,
 };

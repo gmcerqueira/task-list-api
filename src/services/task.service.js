@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
 import {
-  getAll, create, findById, editTask,
+  getAll, create, findById, editTaskText,
 } from '../models/task.model';
 
 const validateUserAccess = async (taskId, user) => {
@@ -26,13 +26,7 @@ const listTasks = async (user) => {
 
 const registerTask = async (text, user) => {
   const { _id } = user;
-  const task = {
-    text,
-    userId: _id,
-    status: 'pending',
-    created: new Date(),
-  };
-  const taskRegister = await create(task);
+  const taskRegister = await create(_id, text);
 
   return taskRegister.insertedId;
 };
@@ -43,13 +37,13 @@ const findTask = async (taskId, user) => {
   return taskFound;
 };
 
-const modTask = async (taskId, user, text) => {
+const modTaskText = async (taskId, user, text) => {
   const taskFound = await validateUserAccess(taskId, user);
 
   if (!taskFound) return { err: { accessDenied: true } };
 
   const { _id } = taskFound;
-  const taskEdited = await editTask(_id, text);
+  const taskEdited = await editTaskText(_id, text);
 
   if (!taskFound) return { err: { accessDenied: true } };
   if (!taskEdited) return { err: { taskNotFound: true } };
@@ -58,5 +52,5 @@ const modTask = async (taskId, user, text) => {
 };
 
 export {
-  listTasks, registerTask, findTask, modTask,
+  listTasks, registerTask, findTask, modTaskText,
 };
