@@ -29,11 +29,23 @@ const findById = async (id) => {
 
 const editTaskText = async (_id, text) => {
   const db = await connection();
-  const taskEdited = await db.collection('tasks').updateOne({ _id }, { $set: { text, lastUpdate: new Date() } });
+  const taskEdited = await db
+    .collection('tasks')
+    .updateOne({ _id: ObjectId(_id) }, { $set: { text, lastUpdate: new Date() } });
+  console.log(taskEdited);
 
-  return taskEdited.acknowledged;
+  return taskEdited.matchedCount;
+};
+
+const editTaskStatus = async (_id, status) => {
+  const db = await connection();
+  const taskEdited = await db
+    .collection('tasks')
+    .updateOne({ _id: ObjectId(_id) }, { $set: { status, lastUpdate: new Date() } });
+
+  return taskEdited.matchedCount;
 };
 
 export {
-  getAll, create, findById, editTaskText,
+  getAll, create, findById, editTaskText, editTaskStatus,
 };

@@ -3,6 +3,7 @@ import {
   registerTask,
   findTask,
   modTaskText,
+  modTaskStatus,
 } from '../services/task.service';
 
 const getAll = async (req, res) => {
@@ -42,6 +43,17 @@ const editTaskText = async (req, res, next) => {
   return res.status(200).json(task);
 };
 
+const editTaskStatus = async (req, res, next) => {
+  const { id } = req.params;
+  const user = req.userData;
+
+  const task = await modTaskStatus(id, user);
+
+  if (task.err) return next(task.err);
+
+  return res.status(200).json(task);
+};
+
 export {
-  getAll, newTask, getTask, editTaskText,
+  getAll, newTask, getTask, editTaskText, editTaskStatus,
 };
