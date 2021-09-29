@@ -16,12 +16,14 @@ const newTask = async (req, res) => {
   res.status(200).json({ taskId });
 };
 
-const getTask = async (req, res) => {
+const getTask = async (req, res, next) => {
   const { id } = req.params;
+  const user = req.userData;
 
-  const task = await findTask(id);
+  const task = await findTask(id, user);
+  if (task.err) return next(task.err);
 
-  res.status(200).json(task);
+  return res.status(200).json(task);
 };
 
 export { getAll, newTask, getTask };
