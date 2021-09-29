@@ -1,4 +1,14 @@
-import { getAll, create } from '../models/task.model';
+import { ObjectId } from 'mongodb';
+import { getAll, create, findById } from '../models/task.model';
+
+const validateUserAccess = async (taskId, user) => {
+  const { _id } = user;
+  const taskFound = await findById(taskId);
+
+  if (ObjectId(_id).toString() !== ObjectId(taskFound.userId).toString()) return false;
+
+  return taskFound;
+};
 
 const listTasks = async (user) => {
   const { _id } = user;
@@ -9,9 +19,21 @@ const listTasks = async (user) => {
 
 const registerTask = async (text, user) => {
   const { _id } = user;
-  const task = await create(text, _id);
+  const task = {
+    text,
+    userId: _id,
+    status: 'pending',
+    created: new Date(),
+  };
+  const taskRegister = await create(task);
 
-  return task.insertedId;
+  return taskRegister.insertedId;
 };
 
-export { listTasks, registerTask };
+const findTask = async (taskId, user) => {
+  const taskFound = await validateUserAccess(taskId, user);
+  if (!taskFound) return { err: { accessDenied: true } };
+  return taskFound;
+};
+
+export { listTasks, registerTask, findTask };
