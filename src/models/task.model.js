@@ -7,13 +7,13 @@ const getAll = async (userId) => {
   return list;
 };
 
-const create = async (text, userId) => {
+const create = async (task) => {
   const db = await connection();
-  const task = await db
+  const taskCreate = await db
     .collection('tasks')
-    .insertOne({ text, userId, created: new Date() });
+    .insertOne(task);
 
-  return task;
+  return taskCreate;
 };
 
 export { getAll, create };

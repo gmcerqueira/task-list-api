@@ -9,7 +9,9 @@ const getAll = async (req, res) => {
 
 const newTask = async (req, res) => {
   const user = req.userData;
-  const taskId = await registerTask(req.body.task, user);
+  const text = req.body.task;
+
+  const taskId = await registerTask(text, user);
 
   res.status(200).json({ taskId });
 };

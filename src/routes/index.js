@@ -7,7 +7,7 @@ import errors from '../middlewares/erros';
 const routes = new Router();
 
 routes.get('/', (_req, res) => {
-  res.status(200).json({ ok: 'connected' });
+  res.status(200).json({ connection: true });
 });
 
 routes.get('/tasks', validateJWT, getAll);

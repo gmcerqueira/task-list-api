@@ -9,9 +9,12 @@ const listTasks = async (user) => {
 
 const registerTask = async (text, user) => {
   const { _id } = user;
-  const task = await create(text, _id);
+  const task = {
+    text, userId: _id, status: 'pending', created: new Date(),
+  };
+  const taskRegister = await create(task);
 
-  return task.insertedId;
+  return taskRegister.insertedId;
 };
 
 export { listTasks, registerTask };
