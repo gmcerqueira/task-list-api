@@ -9,9 +9,21 @@ const getAll = async (req, res) => {
 
 const newTask = async (req, res) => {
   const user = req.userData;
-  const taskId = await _taskservice.registerTask.call(void 0, req.body.task, user);
+  const text = req.body.task;
+
+  const taskId = await _taskservice.registerTask.call(void 0, text, user);
 
   res.status(200).json({ taskId });
 };
 
-exports.getAll = getAll; exports.newTask = newTask;
+const getTask = async (req, res, next) => {
+  const { id } = req.params;
+  const user = req.userData;
+
+  const task = await _taskservice.findTask.call(void 0, id, user);
+  if (task.err) return next(task.err);
+
+  return res.status(200).json(task);
+};
+
+exports.getAll = getAll; exports.newTask = newTask; exports.getTask = getTask;

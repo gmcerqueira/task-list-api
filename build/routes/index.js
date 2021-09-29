@@ -7,11 +7,12 @@ var _erros = require('../middlewares/erros'); var _erros2 = _interopRequireDefau
 const routes = new (0, _express.Router)();
 
 routes.get('/', (_req, res) => {
-  res.status(200).json({ ok: 'connected' });
+  res.status(200).json({ connection: true });
 });
 
 routes.get('/tasks', _jwtAuth2.default, _taskcontroller.getAll);
 routes.post('/tasks/create', _jwtAuth2.default, _taskcontroller.newTask);
+routes.get('/tasks/:id', _jwtAuth2.default, _taskcontroller.getTask);
 
 routes.post('/singup', _usercontroller.singUp);
 routes.post('/login', _usercontroller.login);

@@ -12,6 +12,9 @@
     case err.userNotFound:
       return { code: 400, message: 'User not found' };
 
+    case err.accessDenied:
+      return { code: 403, message: 'Access denied' };
+
     case err.fieldsRequired:
       return { code: 401, message: 'All fields must be filled' };
 
