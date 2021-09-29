@@ -1,4 +1,4 @@
-import { getAll, create } from '../models/task.model';
+import { getAll, create, findById } from '../models/task.model';
 
 const listTasks = async (user) => {
   const { _id } = user;
@@ -10,11 +10,20 @@ const listTasks = async (user) => {
 const registerTask = async (text, user) => {
   const { _id } = user;
   const task = {
-    text, userId: _id, status: 'pending', created: new Date(),
+    text,
+    userId: _id,
+    status: 'pending',
+    created: new Date(),
   };
   const taskRegister = await create(task);
 
   return taskRegister.insertedId;
 };
 
-export { listTasks, registerTask };
+const findTask = async (id) => {
+  const taskFound = await findById(id);
+
+  return taskFound;
+};
+
+export { listTasks, registerTask, findTask };

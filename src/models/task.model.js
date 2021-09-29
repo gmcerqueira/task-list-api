@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import connection from './connection';
 
 const getAll = async (userId) => {
@@ -9,11 +10,16 @@ const getAll = async (userId) => {
 
 const create = async (task) => {
   const db = await connection();
-  const taskCreate = await db
-    .collection('tasks')
-    .insertOne(task);
+  const taskCreate = await db.collection('tasks').insertOne(task);
 
   return taskCreate;
 };
 
-export { getAll, create };
+const findById = async (id) => {
+  const db = await connection();
+  const taskFound = await db.collection('tasks').findOne(ObjectId(id));
+
+  return taskFound;
+};
+
+export { getAll, create, findById };

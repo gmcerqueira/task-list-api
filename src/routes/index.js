@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAll, newTask } from '../controllers/task.controller';
+import { getAll, newTask, getTask } from '../controllers/task.controller';
 import { login, singUp } from '../controllers/user.controller';
 import validateJWT from '../middlewares/jwtAuth';
 import errors from '../middlewares/erros';
@@ -12,6 +12,7 @@ routes.get('/', (_req, res) => {
 
 routes.get('/tasks', validateJWT, getAll);
 routes.post('/tasks/create', validateJWT, newTask);
+routes.get('/tasks/:id', validateJWT, getTask);
 
 routes.post('/singup', singUp);
 routes.post('/login', login);
