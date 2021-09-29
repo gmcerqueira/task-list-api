@@ -22,4 +22,13 @@ const findById = async (id) => {
   return taskFound;
 };
 
-export { getAll, create, findById };
+const editTask = async (_id, text) => {
+  const db = await connection();
+  const taskEdited = await db.collection('tasks').updateOne({ _id }, { $set: { text, lastUpdate: new Date() } });
+
+  return taskEdited.acknowledged;
+};
+
+export {
+  getAll, create, findById, editTask,
+};

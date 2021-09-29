@@ -1,4 +1,9 @@
-import { listTasks, registerTask, findTask } from '../services/task.service';
+import {
+  listTasks,
+  registerTask,
+  findTask,
+  modTask,
+} from '../services/task.service';
 
 const getAll = async (req, res) => {
   const user = req.userData;
@@ -26,4 +31,17 @@ const getTask = async (req, res, next) => {
   return res.status(200).json(task);
 };
 
-export { getAll, newTask, getTask };
+const editTask = async (req, res, next) => {
+  const { id } = req.params;
+  const user = req.userData;
+  const text = req.body.task;
+
+  const task = await modTask(id, user, text);
+  if (task.err) return next(task.err);
+
+  return res.status(200).json(task);
+};
+
+export {
+  getAll, newTask, getTask, editTask,
+};
