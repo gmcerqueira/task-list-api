@@ -1,3 +1,4 @@
+import cors from 'cors';
 import { Router } from 'express';
 import {
   getAll,
@@ -11,6 +12,8 @@ import validateJWT from '../middlewares/jwtAuth';
 import errors from '../middlewares/erros';
 
 const routes = new Router();
+
+routes.use(cors());
 
 routes.get('/', (_req, res) => {
   res.status(200).json({ connection: true });
