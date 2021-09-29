@@ -8,9 +8,14 @@ const getAll = async (userId) => {
   return list;
 };
 
-const create = async (task) => {
+const create = async (_id, text) => {
   const db = await _connection2.default.call(void 0, );
-  const taskCreate = await db.collection('tasks').insertOne(task);
+  const taskCreate = await db.collection('tasks').insertOne({
+    userId: _id,
+    text,
+    status: 'pending',
+    created: new Date(),
+  });
 
   return taskCreate;
 };
@@ -22,4 +27,25 @@ const findById = async (id) => {
   return taskFound;
 };
 
-exports.getAll = getAll; exports.create = create; exports.findById = findById;
+const editTaskText = async (_id, text) => {
+  const db = await _connection2.default.call(void 0, );
+  const taskEdited = await db
+    .collection('tasks')
+    .updateOne({ _id: _mongodb.ObjectId.call(void 0, _id) }, { $set: { text, lastUpdate: new Date() } });
+  console.log(taskEdited);
+
+  return taskEdited.matchedCount;
+};
+
+const editTaskStatus = async (_id, status) => {
+  const db = await _connection2.default.call(void 0, );
+  const taskEdited = await db
+    .collection('tasks')
+    .updateOne({ _id: _mongodb.ObjectId.call(void 0, _id) }, { $set: { status, lastUpdate: new Date() } });
+
+  return taskEdited.matchedCount;
+};
+
+
+
+exports.getAll = getAll; exports.create = create; exports.findById = findById; exports.editTaskText = editTaskText; exports.editTaskStatus = editTaskStatus;

@@ -1,4 +1,10 @@
-"use strict";Object.defineProperty(exports, "__esModule", {value: true});var _taskservice = require('../services/task.service');
+"use strict";Object.defineProperty(exports, "__esModule", {value: true});
+
+
+
+
+
+var _taskservice = require('../services/task.service');
 
 const getAll = async (req, res) => {
   const user = req.userData;
@@ -26,4 +32,28 @@ const getTask = async (req, res, next) => {
   return res.status(200).json(task);
 };
 
-exports.getAll = getAll; exports.newTask = newTask; exports.getTask = getTask;
+const editTaskText = async (req, res, next) => {
+  const { id } = req.params;
+  const user = req.userData;
+  const text = req.body.task;
+
+  const task = await _taskservice.modTaskText.call(void 0, id, user, text);
+  if (task.err) return next(task.err);
+
+  return res.status(200).json(task);
+};
+
+const editTaskStatus = async (req, res, next) => {
+  const { id } = req.params;
+  const user = req.userData;
+
+  const task = await _taskservice.modTaskStatus.call(void 0, id, user);
+
+  if (task.err) return next(task.err);
+
+  return res.status(200).json(task);
+};
+
+
+
+exports.getAll = getAll; exports.newTask = newTask; exports.getTask = getTask; exports.editTaskText = editTaskText; exports.editTaskStatus = editTaskStatus;

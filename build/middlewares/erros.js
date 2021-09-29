@@ -12,6 +12,9 @@
     case err.userNotFound:
       return { code: 400, message: 'User not found' };
 
+    case err.taskNotFound:
+      return { code: 400, message: 'Task not found' };
+
     case err.accessDenied:
       return { code: 403, message: 'Access denied' };
 
