@@ -24,9 +24,11 @@
 };
 
 exports. default = (err, _req, res, next) => {
-  const { code, message } = checkErrorType(err);
-
-  res.status(code).json({ error: message });
-
-  next();
+  try {
+    const { code, message } = checkErrorType(err);
+    res.status(code).json({ error: message });
+    next();
+  } catch (error) {
+    res.status(401).json(error);
+  }
 };
