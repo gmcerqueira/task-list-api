@@ -10,6 +10,5 @@
 
 ## User
 
-- routes.post('/singup', singUp);
+- routes.post('/signup', signUp);
 - routes.post('/login', login);
-
