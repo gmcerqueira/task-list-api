@@ -8,7 +8,7 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
-const singUp = async (req, res, next) => {
+const signUp = async (req, res, next) => {
   const userCreate = await _userservice.createNewUser.call(void 0, req.body);
 
   if (userCreate.err) return next(userCreate.err);
@@ -26,4 +26,4 @@ const login = async (req, res, next) => {
   return res.status(200).json({ token });
 };
 
-exports.login = login; exports.singUp = singUp;
+exports.login = login; exports.signUp = signUp;

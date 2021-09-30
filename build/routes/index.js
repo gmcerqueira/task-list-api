@@ -25,7 +25,7 @@ routes.get('/tasks/:id', _jwtAuth2.default, _taskcontroller.getTask);
 routes.put('/tasks/:id', _jwtAuth2.default, _taskcontroller.editTaskText);
 routes.put('/tasks/check/:id', _jwtAuth2.default, _taskcontroller.editTaskStatus);
 
-routes.post('/singup', _usercontroller.singUp);
+routes.post('/signup', _usercontroller.signUp);
 routes.post('/login', _usercontroller.login);
 
 routes.use(_erros2.default);

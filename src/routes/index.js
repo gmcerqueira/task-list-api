@@ -7,7 +7,7 @@ import {
   editTaskText,
   editTaskStatus,
 } from '../controllers/task.controller';
-import { login, singUp } from '../controllers/user.controller';
+import { login, signUp } from '../controllers/user.controller';
 import validateJWT from '../middlewares/jwtAuth';
 import errors from '../middlewares/erros';
 
@@ -25,7 +25,7 @@ routes.get('/tasks/:id', validateJWT, getTask);
 routes.put('/tasks/:id', validateJWT, editTaskText);
 routes.put('/tasks/check/:id', validateJWT, editTaskStatus);
 
-routes.post('/singup', singUp);
+routes.post('/signup', signUp);
 routes.post('/login', login);
 
 routes.use(errors);
