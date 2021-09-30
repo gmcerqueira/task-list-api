@@ -3,9 +3,9 @@ import { create, findByEmail, login } from '../models/user.model';
 
 const verifyNewUser = (user) => {
   const { error } = Joi.object({
-    firstName: Joi.string().email().not().empty()
+    firstName: Joi.string().not().empty().min(3)
       .required(),
-    lastName: Joi.string().email().not().empty()
+    lastName: Joi.string().not().empty().min(3)
       .required(),
     email: Joi.string().email().not().empty()
       .required(),

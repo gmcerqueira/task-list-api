@@ -3,9 +3,9 @@ var _usermodel = require('../models/user.model');
 
 const verifyNewUser = (user) => {
   const { error } = _joi2.default.object({
-    firstName: _joi2.default.string().email().not().empty()
+    firstName: _joi2.default.string().not().empty().min(3)
       .required(),
-    lastName: _joi2.default.string().email().not().empty()
+    lastName: _joi2.default.string().not().empty().min(3)
       .required(),
     email: _joi2.default.string().email().not().empty()
       .required(),
