@@ -3,6 +3,10 @@ var _usermodel = require('../models/user.model');
 
 const verifyNewUser = (user) => {
   const { error } = _joi2.default.object({
+    firstName: _joi2.default.string().email().not().empty()
+      .required(),
+    lastName: _joi2.default.string().email().not().empty()
+      .required(),
     email: _joi2.default.string().email().not().empty()
       .required(),
     password: _joi2.default.string().not().empty().min(6)
@@ -30,12 +34,9 @@ const createNewUser = async (newUser) => {
   const entriesError = verifyNewUser(newUser);
 
   if (entriesError) return { err: entriesError };
+  if (await verifyWithExists(newUser.email)) return { err: { emailExists: true } };
 
-  const { email, password } = newUser;
-
-  if (await verifyWithExists(email)) return { err: { emailExists: true } };
-
-  const userCreate = await _usermodel.create.call(void 0, email, password);
+  const userCreate = await _usermodel.create.call(void 0, newUser);
 
   return userCreate.insertedId;
 };

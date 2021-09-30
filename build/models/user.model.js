@@ -1,8 +1,8 @@
 "use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _connection = require('./connection'); var _connection2 = _interopRequireDefault(_connection);
 
-const create = async (email, password) => {
+const create = async (newUser) => {
   const db = await _connection2.default.call(void 0, );
-  const user = await db.collection('users').insertOne({ email, password });
+  const user = await db.collection('users').insertOne(newUser);
 
   return user;
 };

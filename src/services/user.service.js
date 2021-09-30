@@ -3,6 +3,10 @@ import { create, findByEmail, login } from '../models/user.model';
 
 const verifyNewUser = (user) => {
   const { error } = Joi.object({
+    firstName: Joi.string().email().not().empty()
+      .required(),
+    lastName: Joi.string().email().not().empty()
+      .required(),
     email: Joi.string().email().not().empty()
       .required(),
     password: Joi.string().not().empty().min(6)
@@ -30,12 +34,9 @@ const createNewUser = async (newUser) => {
   const entriesError = verifyNewUser(newUser);
 
   if (entriesError) return { err: entriesError };
+  if (await verifyWithExists(newUser.email)) return { err: { emailExists: true } };
 
-  const { email, password } = newUser;
-
-  if (await verifyWithExists(email)) return { err: { emailExists: true } };
-
-  const userCreate = await create(email, password);
+  const userCreate = await create(newUser);
 
   return userCreate.insertedId;
 };

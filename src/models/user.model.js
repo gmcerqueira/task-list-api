@@ -1,8 +1,8 @@
 import connection from './connection';
 
-const create = async (email, password) => {
+const create = async (newUser) => {
   const db = await connection();
-  const user = await db.collection('users').insertOne({ email, password });
+  const user = await db.collection('users').insertOne(newUser);
 
   return user;
 };
