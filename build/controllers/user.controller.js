@@ -17,13 +17,13 @@ const signUp = async (req, res, next) => {
 };
 
 const login = async (req, res, next) => {
-  const logged = await _userservice.verifyLogin.call(void 0, req.body);
+  const user = await _userservice.verifyLogin.call(void 0, req.body);
 
-  if (logged.err) return next(logged.err);
+  if (user.err) return next(user.err);
 
-  const token = _jsonwebtoken2.default.sign(logged, secret, jwtConfig);
+  const token = _jsonwebtoken2.default.sign(user, secret, jwtConfig);
 
-  return res.status(200).json({ token });
+  return res.status(200).json({ token, user });
 };
 
 exports.login = login; exports.signUp = signUp;

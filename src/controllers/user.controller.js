@@ -17,13 +17,13 @@ const signUp = async (req, res, next) => {
 };
 
 const login = async (req, res, next) => {
-  const logged = await verifyLogin(req.body);
+  const user = await verifyLogin(req.body);
 
-  if (logged.err) return next(logged.err);
+  if (user.err) return next(user.err);
 
-  const token = jwt.sign(logged, secret, jwtConfig);
+  const token = jwt.sign(user, secret, jwtConfig);
 
-  return res.status(200).json({ token });
+  return res.status(200).json({ token, user });
 };
 
 export { login, signUp };
