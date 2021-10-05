@@ -4,6 +4,7 @@
 
 
 
+
 var _taskservice = require('../services/task.service');
 
 const getAll = async (req, res) => {
@@ -54,6 +55,17 @@ const editTaskStatus = async (req, res, next) => {
   return res.status(200).json(task);
 };
 
+const deleteTask = async (req, res, next) => {
+  const { id } = req.params;
+  const user = req.userData;
+
+  const task = await _taskservice.removeTask.call(void 0, id, user);
+
+  if (task.err) return next(task.err);
+
+  return res.status(200).json(task);
+};
 
 
-exports.getAll = getAll; exports.newTask = newTask; exports.getTask = getTask; exports.editTaskText = editTaskText; exports.editTaskStatus = editTaskStatus;
+
+exports.getAll = getAll; exports.newTask = newTask; exports.getTask = getTask; exports.editTaskText = editTaskText; exports.editTaskStatus = editTaskStatus; exports.deleteTask = deleteTask;

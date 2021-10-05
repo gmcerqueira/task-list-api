@@ -1,6 +1,11 @@
 "use strict";Object.defineProperty(exports, "__esModule", {value: true});var _mongodb = require('mongodb');
 
 
+
+
+
+
+
 var _taskmodel = require('../models/task.model');
 
 const validateUserAccess = async (taskId, user) => {
@@ -33,7 +38,9 @@ const registerTask = async (text, user) => {
 
 const findTask = async (taskId, user) => {
   const taskFound = await validateUserAccess(taskId, user);
+
   if (!taskFound) return { err: { accessDenied: true } };
+
   return taskFound;
 };
 
@@ -44,7 +51,6 @@ const modTaskText = async (_id, user, text) => {
 
   const taskEdited = await _taskmodel.editTaskText.call(void 0, _id, text);
 
-  if (!taskFound) return { err: { accessDenied: true } };
   if (!taskEdited) return { err: { taskNotFound: true } };
 
   return _taskmodel.findById.call(void 0, _id);
@@ -58,12 +64,28 @@ const modTaskStatus = async (_id, user) => {
   const newStatus = taskFound.status === 'pending' ? 'done' : 'pending';
   const taskEdited = await _taskmodel.editTaskStatus.call(void 0, _id, newStatus);
 
-  if (!taskFound) return { err: { accessDenied: true } };
   if (!taskEdited) return { err: { taskNotFound: true } };
 
   return _taskmodel.findById.call(void 0, _id);
 };
 
+const removeTask = async (_id, user) => {
+  const taskFound = await validateUserAccess(_id, user);
+
+  if (!taskFound) return { err: { accessDenied: true } };
+
+  const taskRemoved = await _taskmodel.deleteTask.call(void 0, _id);
+
+  if (!taskRemoved) return { err: { taskNotFound: true } };
+
+  return true;
+};
 
 
-exports.listTasks = listTasks; exports.registerTask = registerTask; exports.findTask = findTask; exports.modTaskText = modTaskText; exports.modTaskStatus = modTaskStatus;
+
+
+
+
+
+
+exports.listTasks = listTasks; exports.registerTask = registerTask; exports.findTask = findTask; exports.modTaskText = modTaskText; exports.modTaskStatus = modTaskStatus; exports.removeTask = removeTask;

@@ -6,6 +6,7 @@ import {
   getTask,
   editTaskText,
   editTaskStatus,
+  deleteTask,
 } from '../controllers/task.controller';
 import { login, signUp } from '../controllers/user.controller';
 import validateJWT from '../middlewares/jwtAuth';
@@ -23,6 +24,7 @@ routes.get('/tasks', validateJWT, getAll);
 routes.post('/tasks/create', validateJWT, newTask);
 routes.get('/tasks/:id', validateJWT, getTask);
 routes.put('/tasks/:id', validateJWT, editTaskText);
+routes.delete('/tasks/:id', validateJWT, deleteTask);
 routes.put('/tasks/check/:id', validateJWT, editTaskStatus);
 
 routes.post('/signup', signUp);

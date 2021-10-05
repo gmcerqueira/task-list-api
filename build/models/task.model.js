@@ -46,6 +46,15 @@ const editTaskStatus = async (_id, status) => {
   return taskEdited.matchedCount;
 };
 
+const deleteTask = async (_id) => {
+  const db = await _connection2.default.call(void 0, );
+  const taskEdited = await db
+    .collection('tasks')
+    .deleteOne({ _id: _mongodb.ObjectId.call(void 0, _id) });
+
+  return taskEdited.deletedCount;
+};
 
 
-exports.getAll = getAll; exports.create = create; exports.findById = findById; exports.editTaskText = editTaskText; exports.editTaskStatus = editTaskStatus;
+
+exports.getAll = getAll; exports.create = create; exports.findById = findById; exports.editTaskText = editTaskText; exports.editTaskStatus = editTaskStatus; exports.deleteTask = deleteTask;

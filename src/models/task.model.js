@@ -46,6 +46,15 @@ const editTaskStatus = async (_id, status) => {
   return taskEdited.matchedCount;
 };
 
+const deleteTask = async (_id) => {
+  const db = await connection();
+  const taskEdited = await db
+    .collection('tasks')
+    .deleteOne({ _id: ObjectId(_id) });
+
+  return taskEdited.deletedCount;
+};
+
 export {
-  getAll, create, findById, editTaskText, editTaskStatus,
+  getAll, create, findById, editTaskText, editTaskStatus, deleteTask,
 };
