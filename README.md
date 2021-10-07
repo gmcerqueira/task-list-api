@@ -24,19 +24,19 @@ Live deploy of this project is available in [Heroku](https://dashboard.heroku.co
 
 ### Install
 
-```cmd
+```
 npm install
 ```
 
 ### Run the app
 
-```cmd
+```
 npm star
 ```
 
 ### Run the app in development
 
-```cmd
+```
 npm run dev
 ```
 
@@ -48,7 +48,7 @@ npm run dev
 
 ### Request
 
-```cmd
+```
 GET /
 ```
 
@@ -61,13 +61,13 @@ GET /
   }
   ```
 
-<hr />
+---
 
 ## Create new user
 
 ### Request
 
-```cmd
+```
 POST /signup
 
 Header:
@@ -90,14 +90,14 @@ Body:
 }
 ```
 
-<hr />
+---
 
 ## Login user
 
 ### Request
 
 
-```cmd
+```
 POST /login
 
 Header:
@@ -125,14 +125,14 @@ Body:
 
 ```
 
-<hr />
+---
 
 ## Create task
 
 ### Request
 
 
-```cmd
+```
 POST /tasks/create
 
 Header:
@@ -153,14 +153,14 @@ Body:
 }
 ```
 
-<hr />
+---
 
 ## Get tasks from user
 
 ### Request
 
 
-```cmd
+```
 GET /tasks
 
 Header:
@@ -184,14 +184,14 @@ Header:
 }
 ```
 
-<hr />
+---
 
 ## Get specific task from user
 
 ### Request
 
 
-```cmd
+```
 GET /tasks/id
 
 Header:
@@ -211,14 +211,14 @@ Header:
 }
 ```
 
-<hr />
+---
 
 ## Edit task text from user
 
 ### Request
 
 
-```cmd
+```
 PUT /tasks/id
 
 Header:
@@ -244,13 +244,13 @@ Body:
 }
 ```
 
-<hr />
+---
 
 ## Change status of task from user
 
 ### Request
 
-```cmd
+```
 PUT /tasks/check/id
 
 Header:
@@ -276,7 +276,7 @@ Body:
 }
 ```
 
-<hr />
+---
 
 
 ## Delete task from user
@@ -284,7 +284,7 @@ Body:
 ### Request
 
 
-```cmd
+```
 DELETE /tasks/id
 
 Header:
@@ -298,4 +298,4 @@ Header:
 true
 ```
 
-<hr />
+---
