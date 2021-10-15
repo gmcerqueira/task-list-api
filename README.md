@@ -14,7 +14,7 @@ The API allows you to:
 - Jsonwebtoken
 - Mongodb
 
-Live deploy of this project is available in [Heroku](https://dashboard.heroku.com/apps/task-list-api-gmc).
+Live deploy of this project is available in [Heroku](https://task-list-api-gmc.herokuapp.com/).
 
 ### **WARNING:** When using the live deploy, please don't use real information.
 
