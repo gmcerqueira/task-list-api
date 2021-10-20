@@ -7,6 +7,7 @@ The API allows you to:
 
 ## Dependencies use
 
+- Node.JS
 - Cors
 - Express
 - Express-rescue
